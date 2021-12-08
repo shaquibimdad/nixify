@@ -34,7 +34,7 @@ height = 27
 ;offset-x = 1%
 ;offset-y = 1%
 radius = 0.0
-fixed-center = false
+fixed-center = true
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -51,17 +51,18 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 =Font Awesome
+font-0 =SF Pro Rounded:style=Regular:size=15:weight=bold
 font-1 =Font Awesome 6 Brands
 font-2 =Font Awesome 6 Free
+font-3 =Font Awesome:size=15
 
-modules-left = bspwm 
-modules-center = date
-modules-right = backlight-acpi alsa wlan battery temperature powermenu
+modules-left = bspwm  info-kernel
+modules-center = date 
+modules-right =  traffic temperature backlight-acpi alsa wlan battery powermenu
 
 tray-position = right
 tray-padding = 8
-tray-background = #2021f9
+tray-background =#000
 
 wm-restack = bspwm
 ;wm-restack = i3
@@ -76,6 +77,13 @@ wm-restack = bspwm
 
 cursor-click = pointer
 cursor-scroll = ns-resize
+
+[module/traffic]
+type = custom/script
+exec = INTERVAL=1 $HOME/mynixconfigs/.config/polybar/scripts/traffic.sh
+tail = true
+format-prefix = "🌍"
+format-prefix-padding = 1
 
 [module/xwindow]
 type = internal/xwindow
@@ -146,7 +154,7 @@ type = internal/xbacklight
 format = <label> <bar>
 label = 
 
-bar-width = 10
+bar-width = 7
 bar-indicator = 
 bar-indicator-foreground = #fff
 bar-indicator-font = 2
@@ -156,6 +164,8 @@ bar-fill-foreground = #9f78e1
 bar-empty = 
 bar-empty-font = 2
 bar-empty-foreground = ${colors.foreground-alt}
+
+
 
 [module/backlight-acpi]
 inherit = module/xbacklight
@@ -170,7 +180,7 @@ interface = wlan0
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
-format-connected-underline = #9f78e1
+;format-connected-underline = #9f78e1
 label-connected = %essid%
 
 format-disconnected =
@@ -179,12 +189,12 @@ format-disconnected =
 ;label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
 
-ramp-signal-0 = 
-ramp-signal-1 = 
-ramp-signal-2 = 
-ramp-signal-3 = 
-ramp-signal-4 = 
-ramp-signal-foreground = ${colors.foreground-alt}
+ramp-signal-0 = 
+; ramp-signal-1 = 
+; ramp-signal-2 = 
+; ramp-signal-3 = 
+; ramp-signal-4 = 
+ramp-signal-foreground = #fff
 
 
 [module/date]
@@ -194,7 +204,7 @@ interval = 1
 date =
 date-alt = " %Y-%m-%d"
 
-time = %I : %M %p
+time = %I:%M:%S %p
 time-alt = 
 
 format-prefix = 
@@ -215,13 +225,13 @@ format-muted-prefix = ""
 format-muted-foreground = #fff
 label-muted = 
 
-bar-volume-width = 10
+bar-volume-width = 7
 bar-volume-foreground-0 = #55aa55
 bar-volume-foreground-1 = #55aa55
 bar-volume-foreground-2 = #55aa55
-bar-volume-foreground-3 = #55aa55
-bar-volume-foreground-4 = #55aa55
-bar-volume-foreground-5 = #f5a70a
+bar-volume-foreground-3 = #f5a70a
+bar-volume-foreground-4 = #f5a70a
+bar-volume-foreground-5 = #ff5555
 bar-volume-foreground-6 = #ff5555
 bar-volume-gradient = true
 bar-volume-indicator = 
@@ -259,32 +269,36 @@ animation-charging-1 = 
 animation-charging-2 = 
 animation-charging-3 = 
 animation-charging-foreground = #fff
-animation-charging-framerate = 950
+animation-charging-framerate = 750
 
-animation-discharging-0 = 
-animation-discharging-1 = 
-animation-discharging-2 = 
-animation-discharging-foreground = ${colors.foreground-alt}
+animation-discharging-0 =  
+;animation-discharging-1 =  
+;animation-discharging-2 =  
+animation-discharging-foreground = #fff
 animation-discharging-framerate = 750
 
 [module/temperature]
 type = internal/temperature
 thermal-zone = 0
-warn-temperature = 60
+interval = 5
+;warn-temperature = 60
 
 format = <ramp> <label>
-format-underline = #f50a4d
-format-warn = <ramp> <label-warn>
-format-warn-underline = ${self.format-underline}
+;format-underline = #f50a4d
+;format-warn = <ramp> <label-warn>
+;format-warn-underline = ${self.format-underline}
 
 label = %temperature-c%
-label-warn = %temperature-c%
-label-warn-foreground = ${colors.secondary}
+;label-warn = %temperature-c%
+;label-warn-foreground = ${colors.secondary}
 
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
-ramp-foreground = ${colors.foreground-alt}
+ramp-0 = 
+ramp-foreground =#fff
+
+[module/info-kernel]
+type = custom/script
+exec = uname -sr
+interval = 1024
 
 [module/powermenu]
 type = custom/menu
@@ -321,7 +335,7 @@ screenchange-reload = true
 ;compositing-background = screen
 ;compositing-foreground = source
 ;compositing-border = over
-;pseudo-transparency = false
+;pseudo-transparency = true
 
 [global/wm]
 margin-top = 5
