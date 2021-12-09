@@ -58,10 +58,10 @@ font-3 =Font Awesome:size=15
 
 modules-left = bspwm  info-kernel
 modules-center = date 
-modules-right =  traffic temperature backlight-acpi alsa wlan battery powermenu
+modules-right =  traffic temperature   wlan battery powermenu backlight-acpi alsa
 
 tray-position = right
-tray-padding = 8
+tray-padding = 0
 tray-background =#000
 
 wm-restack = bspwm
@@ -82,7 +82,6 @@ cursor-scroll = ns-resize
 type = custom/script
 exec = INTERVAL=1 $HOME/mynixconfigs/.config/polybar/scripts/traffic.sh
 tail = true
-format-prefix = "🌍"
 format-prefix-padding = 1
 
 [module/xwindow]
@@ -297,7 +296,7 @@ ramp-foreground =#fff
 
 [module/info-kernel]
 type = custom/script
-exec = uname -sr
+exec = uname -sr | sed -r 's/.{8}$//'
 interval = 1024
 
 [module/powermenu]
