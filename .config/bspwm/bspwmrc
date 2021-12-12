@@ -34,7 +34,7 @@ bspc config merge_overlapping_monitors true
 
 
 #Single monitor
-bspc monitor -d 1 2 3 4 5
+bspc monitor -d 1 2 3 4 5 6
 
 #Dual monitor
 #find out names with arandr or xrandr
@@ -110,7 +110,7 @@ bspc rule -a Xfce4-settings-manager state=tiled
 
 $HOME/.config/polybar/launch.sh
 picom --config $HOME/.config/bspwm/picom.conf &
-feh --bg-scale $HOME/.config/bspwm/wall/holy.jpg
+feh --bg-fill $HOME/.config/bspwm/wall/holy.jpg
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 nm-applet &
 plank &
