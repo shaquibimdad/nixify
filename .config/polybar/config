@@ -55,6 +55,7 @@ font-0 =SF Pro Rounded:style=Regular:size=15:weight=bold
 font-1 =Font Awesome 6 Brands
 font-2 =Font Awesome 6 Free
 font-3 =Font Awesome:size=15
+font-4 =FantasqueSansMono Nerd Font:size=15:weight=bold
 
 modules-left = bspwm  info-kernel
 modules-center = date 
@@ -154,13 +155,13 @@ format = <label> <bar>
 label = 
 
 bar-width = 7
-bar-indicator = 
+bar-indicator = 
 bar-indicator-foreground = #fff
 bar-indicator-font = 2
-bar-fill = 
+bar-fill = 
 bar-fill-font = 2
-bar-fill-foreground = #9f78e1
-bar-empty = 
+bar-fill-foreground = #00ffd5
+bar-empty = 
 bar-empty-font = 2
 bar-empty-foreground = ${colors.foreground-alt}
 
@@ -178,22 +179,11 @@ type = internal/network
 interface = wlan0
 interval = 3.0
 
-format-connected = <ramp-signal> <label-connected>
+format-connected =  <ramp-signal><label-connected>
 ;format-connected-underline = #9f78e1
 label-connected = %essid%
-
-format-disconnected =
-;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground-alt}
-
 ramp-signal-0 = 
-; ramp-signal-1 = 
-; ramp-signal-2 = 
-; ramp-signal-3 = 
-; ramp-signal-4 = 
-ramp-signal-foreground = #fff
+ramp-signal-foreground = #bfff00
 
 
 [module/date]
@@ -233,11 +223,11 @@ bar-volume-foreground-4 = #f5a70a
 bar-volume-foreground-5 = #ff5555
 bar-volume-foreground-6 = #ff5555
 bar-volume-gradient = true
-bar-volume-indicator = 
+bar-volume-indicator = 
 bar-volume-indicator-font = 2
-bar-volume-fill = 
+bar-volume-fill = 
 bar-volume-fill-font = 2
-bar-volume-empty = 
+bar-volume-empty = 
 bar-volume-empty-font = 2
 bar-volume-empty-foreground = ${colors.foreground-alt}
 
@@ -250,7 +240,7 @@ full-at = 100
 format-charging = <animation-charging> <label-charging>
 ;format-charging-underline = #ffb52a
 
-format-discharging = <animation-discharging> <label-discharging>
+format-discharging =  <label-discharging>
 format-discharging-underline = ${self.format-charging-underline}
 
 format-full-prefix = ""
@@ -263,11 +253,8 @@ ramp-capacity-2 = 
 ramp-capacity-3=  
 ramp-capacity-foreground = ${colors.foreground-alt}
 
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
-animation-charging-3 = 
-animation-charging-foreground = #fff
+animation-charging-0 = 
+animation-charging-foreground = #77ff00
 animation-charging-framerate = 750
 
 animation-discharging-0 =  
@@ -292,11 +279,12 @@ label = %temperature-c%
 ;label-warn-foreground = ${colors.secondary}
 
 ramp-0 = 
-ramp-foreground =#fff
+ramp-foreground =#ff0048
 
 [module/info-kernel]
 type = custom/script
-exec = uname -sr | sed -r 's/.{8}$//'
+exec = uname -r | sed -r 's/.{8}$//' | sed 's/^/  /' | sed 's/$/ Arch/'
+format-foreground = #00d0ff
 interval = 1024
 
 [settings]
@@ -308,7 +296,7 @@ screenchange-reload = true
 ;pseudo-transparency = true
 
 [global/wm]
-margin-top = 5
-margin-bottom = 5
+margin-top = 0
+margin-bottom = 0
 
 ; vim:ft=dosini
