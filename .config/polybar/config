@@ -1,21 +1,3 @@
-;==========================================================
-;
-;
-;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
-;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
-;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
-;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
-;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
-;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
-;
-;
-;   To learn more about how to configure Polybar
-;   go to https://github.com/polybar/polybar
-;
-;   The README contains a lot of information
-;
-;==========================================================
-
 [colors]
 ;background = ${xrdb:color0:#222}
 background = #00000000
@@ -35,9 +17,10 @@ height = 27
 ;offset-y = 1%
 radius = 0.0
 fixed-center = true
-
+;dpi = 100
 background = ${colors.background}
 foreground = ${colors.foreground}
+
 
 line-size = 3
 line-color = #f00
@@ -56,6 +39,7 @@ font-1 =Font Awesome 6 Brands
 font-2 =Font Awesome 6 Free
 font-3 =Font Awesome:size=15
 font-4 =FantasqueSansMono Nerd Font:size=15:weight=bold
+font-5= Feather:size=15
 
 modules-left = bspwm  info-kernel
 modules-center = date 
@@ -63,7 +47,8 @@ modules-right =  traffic temperature   wlan battery backlight-acpi alsa
 
 tray-position = right
 tray-padding = 0
-tray-background =#000
+tray-maxsize=1000
+tray-background =#00000000
 
 wm-restack = bspwm
 ;wm-restack = i3
@@ -91,81 +76,45 @@ label = %title:0:30:...%
 
 [module/bspwm]
 type = internal/bspwm
+pin-workspaces = true
+inline-mode = true
+enable-click = true
+enable-scroll = true
+reverse-scroll = true
+fuzzy-match = true
+format = <label-state>
 
-label-focused = %index%
-label-focused-background = ${colors.background-alt}
-label-focused-underline= ${colors.primary}
-label-focused-padding = 2
+ws-icon-0 = 1;%{F#24adf3}%{F-}
+ws-icon-1 = 2;%{O-10}%{F#f7931a}%{F-}
+ws-icon-2 = 3;%{O-10}%{F#6ab66c}%{F-}
+ws-icon-3 = 4;%{O-10}%{F#61dafb}%{F-}
+ws-icon-4 = 5;%{O-10}%{F#ffe563}%{F-}
+ws-icon-5 = 6;%{O-10}%{F#ff0000}%{F-}
 
-label-occupied = %index%
-label-occupied-padding = 2
+label-focused = %{u#6bff63}%{+u}%icon%%{-u}
+label-focused-padding = 3
 
-label-urgent = %index%!
-label-urgent-background = ${colors.alert}
-label-urgent-padding = 2
+label-occupied = %{u#ff6363}%{+u}%icon%%{-u}
+label-occupied-padding = 3
 
-label-empty = %index%
-label-empty-foreground = ${colors.foreground-alt}
-label-empty-padding = 2
-
-; Separator in between workspaces
-; label-separator = |
-
-[module/i3]
-type = internal/i3
-format = <label-state> <label-mode>
-index-sort = true
-wrapping-scroll = false
-
-; Only show workspaces on the same output as the bar
-;pin-workspaces = true
-
-label-mode-padding = 2
-label-mode-foreground = #000
-label-mode-background = ${colors.primary}
-
-; focused = Active workspace on focused monitor
-label-focused = %index%
-label-focused-background = ${colors.background-alt}
-label-focused-underline= ${colors.primary}
-label-focused-padding = 2
-
-; unfocused = Inactive workspace on any monitor
-label-unfocused = %index%
-label-unfocused-padding = 2
-
-; visible = Active workspace on unfocused monitor
-label-visible = %index%
-label-visible-background = ${self.label-focused-background}
-label-visible-underline = ${self.label-focused-underline}
-label-visible-padding = ${self.label-focused-padding}
-
-; urgent = Workspace with urgency hint set
-label-urgent = %index%
-label-urgent-background = ${colors.alert}
-label-urgent-padding = 2
-
-; Separator in between workspaces
- ;label-separator = |
+label-empty = %icon%
+label-empty-padding = 3
+label-separator =
 
 [module/xbacklight]
 type = internal/xbacklight
-
 format = <label> <bar>
 label = 
-
+label-foreground = #ff5252
 bar-width = 7
 bar-indicator = 
-bar-indicator-foreground = #fff
 bar-indicator-font = 2
 bar-fill = 
 bar-fill-font = 2
 bar-fill-foreground = #00ffd5
 bar-empty = 
 bar-empty-font = 2
-bar-empty-foreground = ${colors.foreground-alt}
-
-
+bar-empty-foreground = #666666
 
 [module/backlight-acpi]
 inherit = module/xbacklight
@@ -173,95 +122,54 @@ type = internal/backlight
 card = intel_backlight
 enable-scroll = true
 
-
 [module/wlan]
 type = internal/network
 interface = wlan0
 interval = 3.0
-
-format-connected =  <ramp-signal><label-connected>
-;format-connected-underline = #9f78e1
+format-connected =  <ramp-signal> <label-connected>
 label-connected = %essid%
+label-connected-foreground=#1fffe9
 ramp-signal-0 = 
-ramp-signal-foreground = #bfff00
-
+ramp-signal-foreground =#f2ff00
 
 [module/date]
 type = internal/date
 interval = 1
-
-date =
-date-alt = " %Y-%m-%d"
-
-time = %I:%M:%S %p
-time-alt = 
-
+date-alt = %a %d %b %Y
+time = %I:%M:%S %p 
 format-prefix = 
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #0a6cf5
-
+format-foreground = #00ff3c
 label = %date% %time%
-
 
 [module/alsa]
 type = internal/alsa
-
 format-volume = <label-volume> <bar-volume>
 label-volume =
-label-volume-foreground = ${root.foreground}
-
+label-volume-foreground = #ffbf52
 format-muted-prefix = ""
 format-muted-foreground = #fff
 label-muted = 
-
 bar-volume-width = 7
-bar-volume-foreground-0 = #55aa55
-bar-volume-foreground-1 = #55aa55
-bar-volume-foreground-2 = #55aa55
-bar-volume-foreground-3 = #f5a70a
-bar-volume-foreground-4 = #f5a70a
-bar-volume-foreground-5 = #ff5555
-bar-volume-foreground-6 = #ff5555
-bar-volume-gradient = true
+bar-volume-foreground-0 = #eeff00
 bar-volume-indicator = 
 bar-volume-indicator-font = 2
 bar-volume-fill = 
 bar-volume-fill-font = 2
 bar-volume-empty = 
 bar-volume-empty-font = 2
-bar-volume-empty-foreground = ${colors.foreground-alt}
+bar-volume-empty-foreground = #666666
 
 [module/battery]
 type = internal/battery
 battery = BAT1
 adapter = ACAD
 full-at = 100
-
-format-charging = <animation-charging> <label-charging>
-;format-charging-underline = #ffb52a
-
-format-discharging =  <label-discharging>
-format-discharging-underline = ${self.format-charging-underline}
-
-format-full-prefix = ""
-format-full-prefix-foreground = #fff
-format-full-underline = ${self.format-charging-underline}
-
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-3=  
-ramp-capacity-foreground = ${colors.foreground-alt}
-
-animation-charging-0 = 
-animation-charging-foreground = #77ff00
-animation-charging-framerate = 750
-
-animation-discharging-0 =  
-;animation-discharging-1 =  
-;animation-discharging-2 =  
-animation-discharging-foreground = #fff
-animation-discharging-framerate = 750
+format-charging =  <label-charging>
+format-charging-foreground=#bbff00
+format-discharging =   <label-discharging>
+format-discharging-foreground=#ffbf00
+format-full-prefix = 
+format-full-foreground=#15d62c   
 
 [module/temperature]
 type = internal/temperature
@@ -270,21 +178,14 @@ interval = 5
 ;warn-temperature = 60
 
 format = <ramp> <label>
-;format-underline = #f50a4d
-;format-warn = <ramp> <label-warn>
-;format-warn-underline = ${self.format-underline}
-
 label = %temperature-c%
-;label-warn = %temperature-c%
-;label-warn-foreground = ${colors.secondary}
-
 ramp-0 = 
 ramp-foreground =#ff0048
 
 [module/info-kernel]
 type = custom/script
 exec = uname -r | sed -r 's/.{8}$//' | sed 's/^/  /' | sed 's/$/ Arch/'
-format-foreground = #00d0ff
+format-foreground = #fde362
 interval = 1024
 
 [settings]
@@ -298,5 +199,4 @@ screenchange-reload = true
 [global/wm]
 margin-top = 0
 margin-bottom = 0
-
 ; vim:ft=dosini
