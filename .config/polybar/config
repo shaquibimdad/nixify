@@ -1,6 +1,6 @@
 [colors]
 ;background = ${xrdb:color0:#222}
-background = #00000000
+background = #65000000
 background-alt = #00000000
 ;foreground = ${xrdb:color7:#222}
 foreground = #dfdfdf
@@ -48,7 +48,7 @@ modules-right =  traffic temperature   wlan battery backlight-acpi alsa
 tray-position = right
 tray-padding = 0
 tray-maxsize=1000
-tray-background =#00000000
+tray-background =#65000000
 
 wm-restack = bspwm
 ;wm-restack = i3
