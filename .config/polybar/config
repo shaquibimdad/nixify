@@ -41,7 +41,7 @@ font-3 =Font Awesome:size=15
 font-4 =FantasqueSansMono Nerd Font:size=15:weight=bold
 font-5= Feather:size=15
 
-modules-left = bspwm  info-kernel
+modules-left =workspaces info-kernel
 modules-center = date 
 modules-right =  traffic temperature   wlan battery backlight-acpi alsa
 
@@ -50,10 +50,10 @@ tray-padding = 0
 tray-maxsize=1000
 tray-background =#65000000
 
-wm-restack = bspwm
+;wm-restack = bspwm
 ;wm-restack = i3
 
-;override-redirect = true
+override-redirect = true
 
 ;scroll-up = bspwm-desknext
 ;scroll-down = bspwm-deskprev
@@ -63,6 +63,37 @@ wm-restack = bspwm
 
 cursor-click = pointer
 cursor-scroll = ns-resize
+
+
+[module/workspaces]
+type = internal/xworkspaces
+enable-click = true
+enable-scroll = true
+; available values = %icon%, %name% and %index%
+workspace-label = %icon%
+
+; You can get a list of the defined desktops using:
+; $ xprop -root _NET_DESKTOP_NAMES
+icon-0 = 1;%{F#24adf3}%{F-}
+icon-1 = 2;%{O-10}%{F#f7931a}%{F-}
+icon-2 = 3;%{O-10}%{F#6ab66c}%{F-}
+icon-3 = 4;%{O-10}%{F#61dafb}%{F-}
+icon-4 = 5;%{O-10}%{F#ffe563}%{F-}
+icon-5 = 6;%{O-10}%{F#ff0000}%{F-}
+
+label-active = %{u#6bff63}%{+u}%icon%%{-u}
+label-active-padding = 3
+
+label-occupied = %{u#ff6363}%{+u}%icon%%{-u}
+label-occupied-padding = 3
+
+label-empty = ${self.workspace-label}
+
+label-urgent = ${self.workspace-label}
+label-urgent-underline = #FF0000
+
+label-empty-padding = 3
+label-urgent-padding = 3
 
 [module/traffic]
 type = custom/script
@@ -74,32 +105,32 @@ format-prefix-padding = 1
 type = internal/xwindow
 label = %title:0:30:...%
 
-[module/bspwm]
-type = internal/bspwm
-pin-workspaces = true
-inline-mode = true
-enable-click = true
-enable-scroll = true
-reverse-scroll = true
-fuzzy-match = true
-format = <label-state>
+; [module/bspwm]
+; type = internal/bspwm
+; pin-workspaces = true
+; inline-mode = true
+; enable-click = true
+; enable-scroll = true
+; reverse-scroll = true
+; fuzzy-match = true
+; format = <label-state>
 
-ws-icon-0 = 1;%{F#24adf3}%{F-}
-ws-icon-1 = 2;%{O-10}%{F#f7931a}%{F-}
-ws-icon-2 = 3;%{O-10}%{F#6ab66c}%{F-}
-ws-icon-3 = 4;%{O-10}%{F#61dafb}%{F-}
-ws-icon-4 = 5;%{O-10}%{F#ffe563}%{F-}
-ws-icon-5 = 6;%{O-10}%{F#ff0000}%{F-}
+; icon-0 = 1;%{F#24adf3}%{F-}
+; icon-1 = 2;%{O-10}%{F#f7931a}%{F-}
+; icon-2 = 3;%{O-10}%{F#6ab66c}%{F-}
+; icon-3 = 4;%{O-10}%{F#61dafb}%{F-}
+; icon-4 = 5;%{O-10}%{F#ffe563}%{F-}
+; icon-5 = 6;%{O-10}%{F#ff0000}%{F-}
 
-label-focused = %{u#6bff63}%{+u}%icon%%{-u}
-label-focused-padding = 3
+; label-focused = %{u#6bff63}%{+u}%icon%%{-u}
+; label-focused-padding = 3
 
-label-occupied = %{u#ff6363}%{+u}%icon%%{-u}
-label-occupied-padding = 3
+; label-occupied = %{u#ff6363}%{+u}%icon%%{-u}
+; label-occupied-padding = 3
 
-label-empty = %icon%
-label-empty-padding = 3
-label-separator =
+; label-empty = %icon%
+; label-empty-padding = 3
+; label-separator =
 
 [module/xbacklight]
 type = internal/xbacklight
@@ -197,6 +228,6 @@ screenchange-reload = true
 ;pseudo-transparency = true
 
 [global/wm]
-margin-top = 0
-margin-bottom = 0
+margin-top = 10
+margin-bottom = 10
 ; vim:ft=dosini

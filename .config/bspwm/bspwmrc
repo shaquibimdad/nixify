@@ -52,6 +52,7 @@ bspc rule -a Spotify state=fullscreen
 bspc rule -a Vlc state=fullscreen
 bspc rule -a VirtualBox Manager state=fullscreen
 bspc rule -a VirtualBox Machine state=fullscreen
+bspc rule -a android-studio state=fullscreen
 #bspc rule -a Gimp state=fullscreen
 
 #Floating applications
@@ -62,7 +63,7 @@ bspc rule -a feh state=floating
 bspc rule -a Galculator state=floating
 #bspc rule -a Gpick state=floating sticky=on
 #bspc rule -a Nitrogen state=floating
-bspc rule -a android-studio state=floating border=off follow=on
+
 #bspc rule -a Pavucontrol state=floating sticky=on
 #bspc rule -a Peek state=floating
 #bspc rule -a rofi state=floating sticky=on
