@@ -51,7 +51,7 @@ tray-maxsize=1000
 tray-background =#65000000
 
 ;wm-restack = bspwm
-;wm-restack = i3
+wm-restack = i3
 
 override-redirect = true
 
@@ -67,8 +67,13 @@ cursor-scroll = ns-resize
 
 [module/workspaces]
 type = internal/xworkspaces
+;pin-workspaces = true
+inline-mode = true
 enable-click = true
 enable-scroll = true
+;reverse-scroll = true
+fuzzy-match = true
+
 ; available values = %icon%, %name% and %index%
 workspace-label = %icon%
 
