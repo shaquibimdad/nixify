@@ -6,4 +6,5 @@ ln -s ~/mynixconfigs/.config/gtk-2.0/ ~/.config/gtk-2.0
 ln -s ~/mynixconfigs/.config/gtk-3.0/ ~/.config/gtk-3.0
 ln -s ~/mynixconfigs/.config/rofi/ ~/.config/rofi
 ln -s ~/mynixconfigs/.config/alacritty ~/.config/alacritty
+ln -s ~/mynixconfigs/.config/awesome ~/.config/awesome
 echo "Done"
