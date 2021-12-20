@@ -50,10 +50,10 @@ tray-padding = 0
 tray-maxsize=1000
 tray-background =#65000000
 
-;wm-restack = bspwm
-wm-restack = i3
+;wm-restack = generic
+ ;wm-restack = i3
 
-override-redirect = true
+;override-redirect = true
 
 ;scroll-up = bspwm-desknext
 ;scroll-down = bspwm-deskprev
@@ -79,12 +79,12 @@ workspace-label = %icon%
 
 ; You can get a list of the defined desktops using:
 ; $ xprop -root _NET_DESKTOP_NAMES
-icon-0 = 1;%{F#24adf3}%{F-}
-icon-1 = 2;%{O-10}%{F#f7931a}%{F-}
-icon-2 = 3;%{O-10}%{F#6ab66c}%{F-}
-icon-3 = 4;%{O-10}%{F#61dafb}%{F-}
-icon-4 = 5;%{O-10}%{F#ffe563}%{F-}
-icon-5 = 6;%{O-10}%{F#ff0000}%{F-}
+icon-0 = 1;%{F#24adf3}1%{F-}
+icon-1 = 2;%{O-10}%{F#f7931a}2%{F-}
+icon-2 = 3;%{O-10}%{F#6ab66c}3%{F-}
+icon-3 = 4;%{O-10}%{F#61dafb}4%{F-}
+icon-4 = 5;%{O-10}%{F#ffe563}5%{F-}
+icon-5 = 6;%{O-10}%{F#ff0000}6%{F-}
 
 label-active = %{u#6bff63}%{+u}%icon%%{-u}
 label-active-padding = 3
