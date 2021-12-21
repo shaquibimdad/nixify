@@ -13,6 +13,7 @@ require("awful.hotkeys_popup.keys")
 local keys = {}
 -------------------
 modkey = "Mod4"
+altKey = 'Mod1'
 -------------------
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
@@ -67,6 +68,10 @@ globalkeys = gears.table.join(
         {description = "go back", group = "client"}),
 
     -- Standard program
+    awful.key({modkey}, "space", function() awful.spawn.with_shell("$HOME/mynixconfigs/.config/rofi/1080p/bin/launcher_colorful") end,
+     { }),
+     awful.key({altKey}, "F4", function() awful.spawn.with_shell("$HOME/mynixconfigs/.config/rofi/1080p/bin/menu_powermenu") end,
+     { }),
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
 
@@ -105,8 +110,6 @@ clientkeys = gears.table.join(
         {description = "toggle fullscreen", group = "client"}),
     awful.key({ modkey }, "q",      function (c) c:kill()                         end,
               {description = "close", group = "client"}),
-    -- awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
-    --           {description = "toggle floating", group = "client"}),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
               {description = "move to master", group = "client"}),
     awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end,

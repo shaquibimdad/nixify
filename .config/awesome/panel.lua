@@ -73,7 +73,7 @@ awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
 -- Each screen has its own tag table.
-awful.tag({ "1", "2", "3", "4", "5", "6" }, s, awful.layout.layouts[1])
+awful.tag({ "", "", "", "", "", "" }, s, awful.layout.layouts[1])
 -- Create a promptbox for each screen
    s.mypromptbox = awful.widget.prompt()
     --Create an imagebox widget which will contain an icon indicating which layout we're using.
@@ -94,13 +94,14 @@ awful.tag({ "1", "2", "3", "4", "5", "6" }, s, awful.layout.layouts[1])
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist {
         screen  = s,
+        width=12,
         filter  = awful.widget.tasklist.filter.currenttags,
         buttons = tasklist_buttons
     }
 
 
 -- Create the wibox
-s.mywibox = awful.wibar({ position = "bottom", screen = s,bg = beautiful.bg_normal .. "00" })
+s.mywibox = awful.wibar({ position = "top", screen = s,bg = beautiful.bg_normal .. "00" })
 -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
