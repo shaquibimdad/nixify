@@ -53,7 +53,7 @@ tray-background =#65000000
 ;wm-restack = generic
  ;wm-restack = i3
 
-;override-redirect = true
+override-redirect = true
 
 ;scroll-up = bspwm-desknext
 ;scroll-down = bspwm-deskprev
