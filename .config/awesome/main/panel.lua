@@ -6,15 +6,15 @@ require("awful.autofocus")
 local wibox = require("wibox")
 -- Theme handling library
 local beautiful = require("beautiful")
+local dpi = require('beautiful').xresources.apply_dpi
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
+require("fancy_taglist")
 local panel= {}
 
 
 -- {{{ Wibar
--- Create a textclock widget
-mytextclock = wibox.widget.textclock()
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -67,13 +67,13 @@ local function set_wallpaper(s)
         gears.wallpaper.maximized(wallpaper, s, true)
     end
 end
-
+set_wallpaper(s)
 screen.connect_signal("property::geometry", set_wallpaper)
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
 -- Each screen has its own tag table.
-awful.tag({ "", "", "", "", "", "" }, s, awful.layout.layouts[1])
+awful.tag({ "1", "2", "3", "4", "5", "6"}, s, awful.layout.layouts[1])
 -- Create a promptbox for each screen
    s.mypromptbox = awful.widget.prompt()
     --Create an imagebox widget which will contain an icon indicating which layout we're using.
@@ -84,6 +84,7 @@ awful.tag({ "", "", "", "", "", "" }, s, awful.layout.layouts[
                            awful.button({ }, 3, function () awful.layout.inc(-1) end),
                            awful.button({ }, 4, function () awful.layout.inc( 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
+    -- -- Create a taglist widget
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist {
         screen  = s,
@@ -93,30 +94,103 @@ awful.tag({ "", "", "", "", "", "" }, s, awful.layout.layouts[
 
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist {
-        screen  = s,
-        width=12,
-        filter  = awful.widget.tasklist.filter.currenttags,
-        buttons = tasklist_buttons
+        screen   = s,
+        filter   = awful.widget.tasklist.filter.currenttags,
+        buttons  = tasklist_buttons,
+        layout   = {
+            spacing_widget = {
+                {
+                    forced_width  = 15,
+                    forced_height = 24,
+                    thickness     = 1,
+                    color         = '#fff',
+                    widget        = wibox.widget.separator
+                },
+                valign = 'center',
+                halign = 'center',
+                widget = wibox.container.place,
+            },
+            spacing = 15,
+            layout  = wibox.layout.fixed.horizontal
+        },
+        -- Notice that there is *NO* wibox.wibox prefix, it is a template,
+        -- not a widget instance.
+        widget_template = {
+            {
+                wibox.widget.base.make_widget(),
+                forced_height = 5,
+                id            = 'background_role',
+                widget        = wibox.container.background,
+            },
+            {
+                {
+                    --forced_height=12,
+                    id     = 'clienticon',
+                    widget = awful.widget.clienticon,
+                },
+                forced_height=12,
+                margins = 5,
+                widget  = wibox.container.margin
+            },
+            nil,
+            create_callback = function(self, c, index, objects) --luacheck: no unused args
+                self:get_children_by_id('clienticon')[1].client = c
+            end,
+            layout = wibox.layout.align.vertical,
+        },
     }
 
 
 -- Create the wibox
-s.mywibox = awful.wibar({ position = "top", screen = s,bg = beautiful.bg_normal .. "00" })
+s.panel = awful.wibar({ position = "top", screen = s,bg = beautiful.bg_normal .. "00", ontop = false,
+screen = s,
+height = dpi(22),
+width = s.geometry.width,
+x = s.geometry.x,
+y = s.geometry.y,
+stretch = true, })
+
+local panel =
+    wibox(
+    {
+      ontop = true,
+      screen = s,
+      height = dpi(32),
+      width = s.geometry.width,
+      x = s.geometry.x,
+      y = s.geometry.y,
+      stretch = false,
+      bg = beautiful.bg_normal .. "00",
+      fg = beautiful.fg_normal,
+      struts = {
+        top = dpi(32)
+      }
+    }
+    )
+
+    panel:struts(
+      {
+        top = dpi(32)
+      }
+    )
+
 -- Add widgets to the wibox
-    s.mywibox:setup {
+    s.panel:setup {
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
             mylauncher,
             s.mytaglist,
+            
             s.mypromptbox,
         },
         s.mytasklist, -- Middle widget
+       
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             mykeyboardlayout,
             wibox.widget.systray(),
-            mytextclock,
+            wibox.widget.textclock('<span font="Roboto Mono 12">%I:%M %p</span>'),
             s.mylayoutbox,
         },
     }
