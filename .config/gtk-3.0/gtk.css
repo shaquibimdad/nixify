@@ -1,0 +1,16 @@
+.xfce4-panel {
+	border-radius: 15px;
+	border-top-left-radius:30px;
+	border-top-right-radius:30px;
+	font-size: 13px;
+	color: rgb(146, 31, 31);
+
+}
+
+#pager-1 button { 
+	color: #57B2A7;
+	font-size: 20px;
+ }
+#pager-1 button:checked { 
+	color: #D9DA2A; 
+	font-size:20px}
