@@ -1,0 +1,11 @@
+# This is Git's per-user configuration file.
+
+[user]
+	email = shaquibxyz@gmail.com
+	name = shaquibimdad
+	signingkey = shaquibxyz@gmail.com
+[commit]
+	gpgsign = true
+[gpg]
+	program = gpg2
+
