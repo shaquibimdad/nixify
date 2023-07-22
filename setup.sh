@@ -143,7 +143,7 @@ log "Setting up fstab entry for my data partition..." 32 1
 if [ ! -e "/dev/nvme0n1p3" ]; then
     log "Error: /dev/nvme0n1p3 does not exist. Please check the partition" 31 1
 elif [ -e "/media/shaquib" ]; then
-    log "Error: /media/shaquib already exists and mounted. Skipping" 32 1
+    log "Error: /media/shaquib already exists and mounted. Skipping" 31 1
 else
     log "Creating /media/shaquib and setting permissions..." 32 1
     run_as_root mkdir -p /media/shaquib
