@@ -7,3 +7,6 @@
 ```
 git clone https://github.com/shaquibimdad/mynixconfigs.git && cd mynixconfigs && bash setup.sh
 ```
+
+# Demo Video 🎥
+[![Demo Video](https://img.youtube.com/vi/aCb4dXLHMmY/0.jpg)](https://www.youtube.com/watch?v=aCb4dXLHMmY)
