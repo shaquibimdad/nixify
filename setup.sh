@@ -14,6 +14,9 @@ run_as_root() {
 run_as_root rm -f /etc/pacman.d/mirrorlist
 run_as_root echo "Server = https://mirror.osbeck.com/archlinux/\$repo/os/\$arch" | sudo tee -a /etc/pacman.d/mirrorlist
 
+# enable parallel downloads and colored output
+run_as_root sed -i '/^\s*#\(ParallelDownloads\|Color\)/ s/#//' /etc/pacman.conf
+
 # full system upgrade and install packages
 run_as_root pacman -Syyu --needed --noconfirm \
 kitty \
