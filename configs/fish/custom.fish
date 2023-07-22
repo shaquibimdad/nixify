@@ -14,6 +14,9 @@ alias rnw="yarn react-native run-android --deviceId=$(ip route | grep default | 
 export PATH="$PATH:`yarn global bin`"
 export PATH="/home/shaquibimdad/.local/bin:$PATH"
 
+# gpg-agent
+export GPG_TTY=$(tty)
+
 # Android env
 export ANDROID_SDK_ROOT="/media/shaquib/env/android-sdk/"
 export ANDROID_SDK_TOOLS_DIR="$ANDROID_SDK_ROOT/tools"

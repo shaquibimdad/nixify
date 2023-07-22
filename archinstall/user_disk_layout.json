@@ -1,0 +1,118 @@
+{
+    "/dev/nvme0n1": {
+        "partitions": [
+            {
+                "ESP": false,
+                "PARTUUID": "425479d5-9452-4921-b7b8-7fd4b8bdb89e",
+                "boot": false,
+                "encrypted": false,
+                "filesystem": {
+                    "format": null
+                },
+                "mountpoint": null,
+                "size": 32768,
+                "start": 2048,
+                "type": "primary",
+                "wipe": false
+            },
+            {
+                "ESP": false,
+                "PARTUUID": "45d6e78c-2deb-4ff0-9f1c-b24a33094c00",
+                "boot": false,
+                "encrypted": false,
+                "filesystem": {
+                    "format": "ntfs"
+                },
+                "mountpoint": null,
+                "size": 135911424,
+                "start": 34816,
+                "type": "primary",
+                "wipe": false
+            },
+            {
+                "ESP": false,
+                "PARTUUID": "09c8850b-f6ef-4893-8853-fc84e18cf39c",
+                "boot": false,
+                "encrypted": false,
+                "filesystem": {
+                    "format": "ntfs"
+                },
+                "mountpoint": null,
+                "size": 574470144,
+                "start": 135946240,
+                "type": "primary",
+                "wipe": false
+            },
+            {
+                "ESP": false,
+                "PARTUUID": "faaf299c-786f-47f4-b067-5b9709c9debe",
+                "boot": false,
+                "encrypted": false,
+                "filesystem": {
+                    "format": "swap"
+                },
+                "mountpoint": null,
+                "size": 15624192,
+                "start": 710416384,
+                "type": "primary",
+                "wipe": false
+            },
+            {
+                "ESP": false,
+                "PARTUUID": "044d158a-f63c-4e7a-af9d-6099652c9011",
+                "boot": false,
+                "encrypted": false,
+                "filesystem": {
+                    "format": "apfs"
+                },
+                "mountpoint": null,
+                "size": 102204680,
+                "start": 726040576,
+                "type": "primary",
+                "wipe": false
+            },
+            {
+                "ESP": false,
+                "PARTUUID": "627b0e89-3d1d-42aa-b927-b13579ccf161",
+                "boot": false,
+                "encrypted": false,
+                "filesystem": {
+                    "format": "vfat"
+                },
+                "mountpoint": null,
+                "size": 194560,
+                "start": 828246016,
+                "type": "primary",
+                "wipe": false
+            },
+            {
+                "ESP": false,
+                "PARTUUID": "3430c97d-5d45-eb40-80ad-1e84098bb2db",
+                "boot": false,
+                "encrypted": false,
+                "filesystem": {
+                    "format": "btrfs"
+                },
+                "mountpoint": "/",
+                "size": 170725376,
+                "start": 828440576,
+                "type": "primary",
+                "wipe": true
+            },
+            {
+                "ESP": true,
+                "PARTUUID": "3e137ceb-7315-4ce1-b906-982e73cb0352",
+                "boot": true,
+                "encrypted": false,
+                "filesystem": {
+                    "format": "vfat"
+                },
+                "mountpoint": "/boot",
+                "size": 1048575,
+                "start": 999165952,
+                "type": "primary",
+                "wipe": false
+            }
+        ]
+    }
+}

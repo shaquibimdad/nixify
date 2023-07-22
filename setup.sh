@@ -10,6 +10,10 @@ run_as_root() {
     fi
 }
 
+# update pacman mirrorlist
+run_as_root rm -f /etc/pacman.d/mirrorlist
+run_as_root echo "Server = https://mirror.osbeck.com/archlinux/\$repo/os/\$arch" | sudo tee -a /etc/pacman.d/mirrorlist
+
 # full system upgrade and install packages
 run_as_root pacman -Syyu --needed --noconfirm \
 kitty \
@@ -18,7 +22,6 @@ exa \
 htop \
 neofetch \
 nvtop \
-git \
 fish \
 curl \
 wget \
@@ -33,7 +36,8 @@ yarn \
 python \
 python-pip \
 base-devel \
-noto-fonts-emoji
+noto-fonts-emoji \
+ttf-hack-nerd
 
 # install yay aur helper and packages
 git clone https://aur.archlinux.org/yay.git --depth 1
@@ -44,9 +48,6 @@ rm -rf yay
 
 yay -Syyu --needed --noconfirm \
 apg \
-wd719x-firmware \
-aic94xx-firmware \
-ast-firmware \
 google-chrome \
 visual-studio-code-bin
 
@@ -64,7 +65,7 @@ for file in *.gpg; do
 done
 cd decrypted
 # gpg restore
-echo "$passphrase" | gpg --import-options restore --import exported_gpg_key.gpg
+echo "$passphrase" | gpg --batch --import-options restore --import exported_gpg_key.gpg
 rm -f exported_gpg_key.gpg
 
 # ssh restore
@@ -110,11 +111,8 @@ else
     run_as_root echo "/dev/nvme0n1p3 /media/shaquib ntfs-3g auto,users,permissions,exec,uid=1000,gid=1000 0 0" | sudo tee -a /etc/fstab
 fi
 
-# update pacman mirrorlist
-run_as_root rm -f /etc/pacman.d/mirrorlist
-run_as_root echo "Server = https://mirror.osbeck.com/archlinux/\$repo/os/\$arch" | sudo tee -a /etc/pacman.d/mirrorlist
-
 # change shell to fish
 run_as_root usermod -s /usr/bin/fish shaquibimdad
 
-
+# As of GDM 42 and NVIDIA driver 510, GDM defaults to Wayland. For older NVIDIA drivers (in between version 470 and 510), GDM has chipset-dependent udev rules to use Xorg rather than Wayland. To force-enable Wayland, override these rules by creating the following symlink:
+# run_as_root ln -s /dev/null /etc/udev/rules.d/61-gdm.rules
