@@ -7,7 +7,7 @@ It's essential to conduct thorough research and exercise caution before executin
 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
 ### Setup
 ```
-git clone https://github.com/shaquibimdad/mynixconfigs.git && cd mynixconfigs && bash setup.sh
+git clone https://github.com/shaquibimdad/nixify.git && cd nixify && bash nixify.sh
 ```
 
 # Demo Video 🎥
