@@ -138,6 +138,11 @@ git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(ye
 git config --global alias.lg2 "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all"
 log "gitconfig setup complete" 32 1
 
+# enable bluetooth service
+log "Enabling bluetooth service..." 32 1
+run_as_root systemctl enable bluetooth.service
+log "Bluetooth service enabled" 32 1
+
 # fstab entry for my data partition
 log "Setting up fstab entry for my data partition..." 32 1
 if [ ! -e "/dev/nvme0n1p3" ]; then
