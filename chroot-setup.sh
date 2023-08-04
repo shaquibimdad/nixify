@@ -41,8 +41,33 @@ pacman -Sy --needed --noconfirm networkmanager
 systemctl enable NetworkManager
 systemctl enable bluetooth.service
 
-# install gnome
-pacman -Sy --needed --noconfirm gnome git nano
+# install gnome and packages
+pacman -Syyu --needed --noconfirm gnome \
+    git \
+    nano \
+    kitty \
+    vim \
+    exa \
+    zip \
+    htop \
+    neofetch \
+    nvtop \
+    fish \
+    wget \
+    ntfs-3g \
+    telegram-desktop \
+    discord \
+    vlc \
+    gwenview \
+    ktorrent \
+    nodejs-lts-gallium \
+    yarn \
+    python \
+    python-pip \
+    base-devel \
+    noto-fonts-emoji \
+    ttf-hack-nerd
+
 systemctl enable gdm
 
 # Install the boot loader

@@ -109,41 +109,41 @@ log "fstab entry for my data partition setup complete" 32 1
 run_as_root usermod -s /usr/bin/fish shaquibimdad
 log "Shell changed to fish" 32 1
 
-# update pacman mirrorlist
-run_as_root rm -f /etc/pacman.d/mirrorlist
-run_as_root echo "Server = https://mirror.osbeck.com/archlinux/\$repo/os/\$arch" | sudo tee -a /etc/pacman.d/mirrorlist
-log "Pacman mirrorlist updated" 32 1
+# # update pacman mirrorlist
+# run_as_root rm -f /etc/pacman.d/mirrorlist
+# run_as_root echo "Server = https://mirror.osbeck.com/archlinux/\$repo/os/\$arch" | sudo tee -a /etc/pacman.d/mirrorlist
+# log "Pacman mirrorlist updated" 32 1
 
-# enable parallel downloads and colored output
-run_as_root sed -i '/^\s*#\(ParallelDownloads\|Color\)/ s/#//' /etc/pacman.conf
-log "Parallel downloads and colored output enabled" 32 1
+# # enable parallel downloads and colored output
+# run_as_root sed -i '/^\s*#\(ParallelDownloads\|Color\)/ s/#//' /etc/pacman.conf
+# log "Parallel downloads and colored output enabled" 32 1
 
-# full system upgrade and install packages
-run_as_root pacman -Syyu --needed --noconfirm \
-    kitty \
-    vim \
-    exa \
-    zip \
-    htop \
-    neofetch \
-    nvtop \
-    fish \
-    wget \
-    ntfs-3g \
-    telegram-desktop \
-    discord \
-    vlc \
-    gwenview \
-    ktorrent \
-    nodejs-lts-gallium \
-    yarn \
-    python \
-    python-pip \
-    base-devel \
-    noto-fonts-emoji \
-    ttf-hack-nerd
+# # full system upgrade and install packages
+# run_as_root pacman -Syyu --needed --noconfirm \
+#     kitty \
+#     vim \
+#     exa \
+#     zip \
+#     htop \
+#     neofetch \
+#     nvtop \
+#     fish \
+#     wget \
+#     ntfs-3g \
+#     telegram-desktop \
+#     discord \
+#     vlc \
+#     gwenview \
+#     ktorrent \
+#     nodejs-lts-gallium \
+#     yarn \
+#     python \
+#     python-pip \
+#     base-devel \
+#     noto-fonts-emoji \
+#     ttf-hack-nerd
 
-log "Full system upgrade and package installation complete" 32 1
+# log "Full system upgrade and package installation complete" 32 1
 
 # install yay aur helper and packages
 git clone https://aur.archlinux.org/yay.git --depth 1
