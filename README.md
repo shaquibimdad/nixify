@@ -1,4 +1,5 @@
-## My Arch Linux env setup script for my personal use 🤓
+# ./Work in Progress 🚧
+## My Arch Linux env setup script for my personal use. Includes Hardcoded Values!!!! Beware🤓
 
 ### ⚠️ Hey, take a look at this script and feel free to use any parts you like.
 ##### I want to emphasize that I cannot be held responsible for any damage caused by this script, including extreme scenarios like thermonuclear war or unfortunate events like the alarm app failing and you potentially getting fired :). 
@@ -12,3 +13,6 @@ git clone https://github.com/shaquibimdad/nixify.git && cd nixify && bash nixify
 
 # Demo Video 🎥
 [![Demo Video](https://img.youtube.com/vi/aCb4dXLHMmY/0.jpg)](https://www.youtube.com/watch?v=aCb4dXLHMmY)
+
+# Roadmap 🗺️
+- [ ] Make it Arch simplified installer script for everyone
