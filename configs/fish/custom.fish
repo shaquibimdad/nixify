@@ -48,5 +48,8 @@ function ppp
   g++ -o $name $name.cpp && ./$name < input.txt > output.txt && rm $name
 end
 
-
-
+function gac
+  git add .
+  git commit --amend --no-edit
+  git push -f
+end

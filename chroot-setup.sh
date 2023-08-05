@@ -73,15 +73,22 @@ systemctl enable gdm
 # Install the boot loader
 bootctl --path=/boot install
 # Create a boot loader entry for Arch Linuxpp
-cat > /boot/loader/entries/archpp.conf << EOF
-title   Arch Linuxpp
+cat > /boot/loader/entries/arch.conf << EOF
+title   Arch Linux
 linux   /vmlinuz-linux
 initrd  /intel-ucode.img
 initrd  /initramfs-linux.img
 options root=/dev/nvme0n1p9 rw
 EOF
 
-# Stub Fallback initramfs
+# Fallback entry
+cat > /boot/loader/entries/arch-fallback.conf << EOF
+title   Arch Linux (FALLBACK ;-;)
+linux   /vmlinuz-linux
+initrd  /intel-ucode.img
+initrd  /initramfs-linux-fallback.img
+options root=/dev/nvme0n1p9 rw
+EOF
 
 # exit the chroot environment properly
 exit
