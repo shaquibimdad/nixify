@@ -27,9 +27,6 @@ else
     log "Sudo granted" 32 1
 fi
 
-# set dns to 8.8.8.8
-nmcli connection modify "Shaquib" ipv4.dns"8.8.8.8 8.8.4.4"
-log "google DNS set" 32 1
 
 # read all passwords
 echo
@@ -109,58 +106,14 @@ log "fstab entry for my data partition setup complete" 32 1
 run_as_root usermod -s /usr/bin/fish shaquibimdad
 log "Shell changed to fish" 32 1
 
-# # update pacman mirrorlist
-# run_as_root rm -f /etc/pacman.d/mirrorlist
-# run_as_root echo "Server = https://mirror.osbeck.com/archlinux/\$repo/os/\$arch" | sudo tee -a /etc/pacman.d/mirrorlist
-# log "Pacman mirrorlist updated" 32 1
-
-# # enable parallel downloads and colored output
-# run_as_root sed -i '/^\s*#\(ParallelDownloads\|Color\)/ s/#//' /etc/pacman.conf
-# log "Parallel downloads and colored output enabled" 32 1
-
-# # full system upgrade and install packages
-# run_as_root pacman -Syyu --needed --noconfirm \
-#     kitty \
-#     vim \
-#     exa \
-#     zip \
-#     htop \
-#     neofetch \
-#     nvtop \
-#     fish \
-#     wget \
-#     ntfs-3g \
-#     telegram-desktop \
-#     discord \
-#     vlc \
-#     gwenview \
-#     ktorrent \
-#     nodejs-lts-gallium \
-#     yarn \
-#     python \
-#     python-pip \
-#     base-devel \
-#     noto-fonts-emoji \
-#     ttf-hack-nerd
-
-# log "Full system upgrade and package installation complete" 32 1
-
 # install yay aur helper and packages
-git clone https://aur.archlinux.org/yay.git --depth 1
-cd yay
-makepkg -si --noconfirm
-cd ..
-rm -rf yay
+git clone https://aur.archlinux.org/yay.git --depth 1 && cd yay && makepkg -si --noconfirm && cd .. && rm -rf yay
 
-yay -Syyu --needed --noconfirm \
+yay -Sy --needed --noconfirm \
     google-chrome \
     visual-studio-code-bin
 
 log "Yay aur helper and package installation complete" 32 1
-
-# enable bluetooth service
-run_as_root systemctl start --now bluetooth.service
-log "Bluetooth service enabled" 32 1
 
 # desktop environment specific
 if [ "$XDG_CURRENT_DESKTOP" = "KDE" ]; then
@@ -174,9 +127,9 @@ else
     exit 1
 fi
 
-install fisher
-bash -c 'fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher"'
-# install fish plugins
-bash -c 'fish -c "fisher install IlanCosman/tide@v5"'
-log "Fisher and plugins installed" 32 1
+# install fisher
+# bash -c 'fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher"'
+# # install fish plugins
+# bash -c 'fish -c "fisher install IlanCosman/tide@v5"'
+# log "Fisher and plugins installed" 32 1
 

@@ -43,6 +43,7 @@ systemctl enable bluetooth.service
 
 # install gnome and packages
 pacman -Syyu --needed --noconfirm gnome \
+    intel-ucode \
     git \
     nano \
     kitty \
