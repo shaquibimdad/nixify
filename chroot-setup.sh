@@ -44,6 +44,14 @@ systemctl enable bluetooth.service
 # install gnome and packages
 pacman -Syyu --needed --noconfirm gnome \
     intel-ucode \
+    intel-media-driver \
+    mesa-utils \
+    libva-intel-driver \
+    libva-utils \
+    expac \
+    sysfsutils \
+    mesa-vdpau \
+    xorg-xwininfo \
     git \
     nano \
     kitty \
