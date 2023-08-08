@@ -48,6 +48,7 @@ pacman -Syyu --needed --noconfirm gnome \
     mesa-utils \
     libva-intel-driver \
     libva-utils \
+    power-profiles-daemon \
     expac \
     sysfsutils \
     mesa-vdpau \
@@ -78,6 +79,7 @@ pacman -Syyu --needed --noconfirm gnome \
     ttf-hack-nerd
 
 systemctl enable gdm
+systemctl enable power-profiles-daemon
 
 # Install the boot loader
 bootctl --path=/boot install
