@@ -85,6 +85,24 @@ systemctl enable power-profiles-daemon
 # nvidia configs
 ln -s /dev/null /etc/udev/rules.d/61-gdm.rules
 mkinitcpio -P
+# Create a pacman hook to automatically regenerate the initramfs
+cat > /etc/pacman.d/hooks/nvidia.hook << EOF
+[Trigger]
+Operation=Install
+Operation=Upgrade
+Operation=Remove
+Type=Package
+Target=nvidia
+Target=linux
+# Change the linux part above and in the Exec line if a different kernel is used
+
+[Action]
+Description=Update NVIDIA module in initcpio
+Depends=mkinitcpio
+When=PostTransaction
+NeedsTargets
+Exec=/bin/sh -c 'while read -r trg; do case $trg in linux) exit 0; esac; done; /usr/bin/mkinitcpio -P'
+EOF
 
 # Install the boot loader
 bootctl --path=/boot install
