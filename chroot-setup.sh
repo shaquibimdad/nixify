@@ -54,6 +54,7 @@ pacman -Syyu --needed --noconfirm gnome \
     sysfsutils \
     mesa-vdpau \
     xorg-xwininfo \
+    plymouth \
     git \
     nano \
     kitty \
@@ -78,6 +79,9 @@ pacman -Syyu --needed --noconfirm gnome \
     base-devel \
     noto-fonts-emoji \
     ttf-hack-nerd
+
+sed -i 's/^Theme=.*/Theme=Script/' /etc/plymouth/plymouthd.conf
+# sed -i 's/^HOOKS=.*/HOOKS=(base udev autodetect modconf block keyboard plymouth filesystems fsck)/' /etc/mkinitcpio.conf
 
 systemctl enable gdm
 systemctl enable power-profiles-daemon
@@ -112,7 +116,7 @@ title   Arch Linux
 linux   /vmlinuz-linux
 initrd  /intel-ucode.img
 initrd  /initramfs-linux.img
-options root=/dev/nvme0n1p9 rw
+options root=/dev/nvme0n1p9 rw quiet splash
 EOF
 
 # Fallback entry
