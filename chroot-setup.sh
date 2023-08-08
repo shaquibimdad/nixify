@@ -44,6 +44,7 @@ systemctl enable bluetooth.service
 # install gnome and packages
 pacman -Syyu --needed --noconfirm gnome \
     intel-ucode \
+    nvidia-open \
     intel-media-driver \
     mesa-utils \
     libva-intel-driver \
@@ -80,6 +81,10 @@ pacman -Syyu --needed --noconfirm gnome \
 
 systemctl enable gdm
 systemctl enable power-profiles-daemon
+
+# nvidia configs
+ln -s /dev/null /etc/udev/rules.d/61-gdm.rules
+mkinitcpio -P
 
 # Install the boot loader
 bootctl --path=/boot install
