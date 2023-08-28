@@ -2,10 +2,19 @@
 #set -e
 
 TIME_NOW="$(date "+%b %d %Y %Hh:%Mm:%Ss %Z")"
-OS_INFO="$(grep PRETTY_NAME /etc/os-release | sed 's/PRETTY_NAME=//g' | tr -d '="')"
+OS_INFO="$(grep PRETTY_NAME /etc/os-release | sed 's/PRETTY_NAME=//g' | tr -d '="' | sed 's/\./\\./g' | sed 's/\-/\\-/g')"
+echo $OS_INFO # test
 HOST_KERNEL="$(uname -r| sed 's/\./\\./g' | sed 's/\-/\\-/g')"
 HOST_CORES="$(nproc --all)"
-ZIP_NAME="Daemon-v1.02.zip"
+
+if [ -z "$1" ]; then
+    echo "No version specified."
+    VERSION="alpha"
+else
+    VERSION="v$1"
+fi
+
+ZIP_NAME="Daemon-$VERSION.zip"
 
 log() {
     local message=$1
@@ -17,10 +26,18 @@ log() {
     echo -e "${style_code}${color_code}${message}${reset_code}"
 }
 
+
+if [ -f "/etc/apt/sources.list" ]; then
+    sudo apt-get install binutils-aarch64-linux-gnu
+else
+    # sudo pacman -S binutils-aarch64-linux-gnu
+    log "Archlinux detected" 32 1
+fi
+
 device="munch"
 # test_channel="-1001410447029"   # group
-# test_channel="-1001366565777" # channel
-test_channel="-1001356262990"      # test channel
+test_channel="-1001366565777" # channel
+# test_channel="-1001356262990"      # test channel
 
 function tg() {
     local action="$1"
@@ -48,12 +65,6 @@ function tg() {
         fi
 
     elif [ "$action" == "e" ]; then
-        if [ -n "$doc_path" ]; then
-            curl -F document=@"$doc_path" \
-                "https://api.telegram.org/bot${BOT_API_KEY}/sendDocument" \
-                -F chat_id="$CHAT_ID" -F caption="$doc_caption" -F "parse_mode=MarkdownV2"  2>/dev/null
-        fi
-
         if [ -z "$last_message_id" ]; then
             echo "No message to edit. Send a message first."
             exit 1
@@ -77,21 +88,57 @@ function tg() {
 
             last_message_id=$(echo $message_response | jq .result.message_id)
         fi
+    elif [ "$action" == "d" ]; then
+        if [ -z "$last_message_id" ]; then
+            echo "No message to delete. Send a message first."
+            exit 1
+        fi
+
+        curl --request POST \
+            --url "https://api.telegram.org/bot${BOT_API_KEY}/deleteMessage" \
+            --data "chat_id=${CHAT_ID}" \
+            --data "message_id=${last_message_id}"
+
+        last_message_id=""
+    elif [ "$action" == "doc" ]; then
+        if [ -n "$doc_path" ]; then
+            curl -F document=@"$doc_path" \
+                "https://api.telegram.org/bot${BOT_API_KEY}/sendDocument" \
+                -F chat_id="$CHAT_ID" -F caption="$doc_caption" -F "parse_mode=MarkdownV2"  -o /dev/null
+        fi
     else
         echo "Invalid action: $action"
         exit 1
     fi
 }
 
+log "******************************************" 33 1
+log "*   Cloning AOSP Clang                   *" 32 1
+log "******************************************" 33 1
+DIR=`readlink -f .`
+MAIN=`readlink -f ${DIR}/..`
+if [ -d "$MAIN/clang" ]; then
+    log "Toolchain already exist!" 32 1
+    log ""
+else
+    log "Downloading AOSP Clang 17.0.3" 32 1
+    curl https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/main/clang-r498229.tar.gz -o "aosp-clang.tar.gz"
+    mkdir "$MAIN"/clang && tar -xf aosp-clang.tar.gz -C "$MAIN"/clang && rm -rf aosp-clang.tar.gz
+fi
+
 export ARCH=arm64
 export SUBARCH=arm64
-export KBUILD_COMPILER_STRING="$(clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//')"
 
-BUILD_START=$(date +"%s")
+
 KERNEL_DIR=$(pwd)
 ZIMAGE_DIR="$KERNEL_DIR/out/arch/arm64/boot"
 
 
+CLANG_DIR="$MAIN/clang"
+KBUILD_COMPILER_STRING="$("${CLANG_DIR}"/bin/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//')"
+PATH="$CLANG_DIR/bin:$PATH"
+
+BUILD_START=$(date +"%s")
 log "******************************************" 33 1
 log "*   Checking and updating kernelSU       *" 32 1
 log "******************************************" 33 1
@@ -102,7 +149,6 @@ log "******************************************" 33 1
 log "*          Making munch_defconfig        *" 32 1
 log "******************************************" 33 1
 
-# make munch_defconfig O=out CC=clang
 make munch_defconfig O=out LLVM=1 \
                 ARCH=arm64 \
                 CC=clang \
@@ -114,7 +160,7 @@ make munch_defconfig O=out LLVM=1 \
 log "******************************************" 33 1
 log "*          Compiling Kernel              *" 32 1
 log "******************************************" 33 1
-make -j$(nproc --all) O=out \
+make -j16 O=out \
     LLVM=1 \
     ARCH=arm64 \
     CC=clang \
@@ -149,13 +195,13 @@ CAPTION='
 *'$TOTAL_TIME'*
 
 *Compiler*: _AOSP Clang 17\.0\.3_
-*Host OS* : _'$OS_INFO'_
+*LD* :_GNU ld \(GNU Binutils\) 2\.41\.0_
 *Host Kernel* : _'$HOST_KERNEL'_
 *Host Cores* : _'$HOST_CORES'_
 
 '
-tg "e" "" "$test_channel" "true" "$ZIP_NAME" "$CAPTION" 2>/dev/null
+tg "doc" "" "$test_channel" "true" "$ZIP_NAME" "$CAPTION"
 
 log "Build completed in $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) seconds." 32 1
 
-git reset --hard
+# git reset --hard
