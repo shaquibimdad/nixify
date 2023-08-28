@@ -76,6 +76,7 @@ git config --global push.default current
 git config --global alias.co checkout
 git config --global alias.br branch
 git config --global alias.st status
+git config --global merge.tool meld
 git config --global alias.unstage "reset HEAD --"
 git config --global alias.last "log -1 HEAD"
 git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
@@ -110,6 +111,7 @@ log "Shell changed to fish" 32 1
 git clone https://aur.archlinux.org/yay.git --depth 1 && cd yay && makepkg -si --noconfirm && cd .. && rm -rf yay
 
 yay -Sy --needed --noconfirm \
+    nautilus-open-any-terminal \
     google-chrome \
     visual-studio-code-bin
 
