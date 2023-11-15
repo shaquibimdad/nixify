@@ -9,8 +9,8 @@ with subprocess.Popen(["tee", "/etc/pacman.d/mirrorlist"], stdin=subprocess.PIPE
 
 subprocess.run(["sed", "-i", "/^\\s*#\\(ParallelDownloads\\|Color\\)/ s/#//", "/etc/pacman.conf"], check=True)
 
-root_partition = "/dev/nvme0n1p9"
-boot_partition = "/dev/nvme0n1p8"
+root_partition = "/dev/nvme0n1p4"
+boot_partition = "/dev/nvme0n1p5"
 
 subprocess.run(["timedatectl", "set-ntp", "true"], check=True)
 subprocess.run(["mkfs.ext4", root_partition], check=True)
