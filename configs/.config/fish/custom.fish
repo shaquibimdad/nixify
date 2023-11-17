@@ -1,17 +1,13 @@
 alias ls="exa --icons"
-#source /usr/share/nvm/init-nvm.sh
-alias nv="source /usr/share/nvm/init-nvm.sh"
-#source /media/shaquib/projects/python-venvs/django/bin/activate
+
 alias activate="source /media/shaquib/projects/python-venvs/django/bin/activate.fish"
 
-alias dvr="__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia /opt/resolve/bin/resolve"
-
-export PATH="/home/shaquibimdad/.local/bin:$PATH"
+alias __dvr="__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia /opt/resolve/bin/resolve"
 
 # gpg-agent
 export GPG_TTY=$(tty)
 
-#ccache env
+# ccache env-setup
 # export CCACHE_SLOPPINESS=clang_index_store,file_stat_matches,include_file_ctime,include_file_mtime,ivfsoverlay,pch_defines,modules,system_headers,time_macros
 # export CCACHE_FILECLONE=true
 # export CCACHE_DEPEND=true

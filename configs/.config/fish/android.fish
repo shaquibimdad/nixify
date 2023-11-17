@@ -1,15 +1,13 @@
-# Android env
-export ANDROID_SDK_ROOT="/media/shaquib/env/android-sdk/"
-export ANDROID_SDK_TOOLS_DIR="$ANDROID_SDK_ROOT/tools"
-export ANDROID_HOME="/media/shaquib/env/android-sdk/"
-export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
-export PATH="$ANDROID_HOME/platform-tools:$PATH"
-export PATH="$ANDROID_HOME/emulator/:$PATH"
-export PATH="/media/shaquib/env/android-studio/jre/bin:$PATH"
-export PATH="/media/shaquib/projects/android-app-dev/flutter/bin:$PATH"
-export JAVA_HOME="/media/shaquib/env/android-studio/jre"
 export CHROME_EXECUTABLE=google-chrome-stable
-export GRADLE_USER_HOME="/media/shaquib/projects/android-app-dev/.gradle/"
+
+export ANDROID_HOME="/media/shaquib/env/android"
+export ANDROID_SDK_ROOT="$ANDROID_HOME"
+export JAVA_HOME="/media/shaquib/env/java/jdk17"
+
+fish_add_path $ANDROID_HOME/cmdline-tools/latest/bin
+fish_add_path $ANDROID_HOME/emulator
+fish_add_path $ANDROID_HOME/platform-tools
+fish_add_path $JAVA_HOME/bin
 
 alias adbc="adb connect $(ip route | grep default | awk '{print $3}'):5555"
 alias adbx="adb disconnect $(ip route | grep default | awk '{print $3}'):5555"
