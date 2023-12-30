@@ -15,6 +15,14 @@ function addpaths
     echo "Updated PATH: $PATH"
 end
 
+function ngrokk
+	ngrok http --domain=cobra-giving-cow.ngrok-free.app 8000
+end
+
+#function nvm
+#           bass source ~/.nvm/nvm.sh --no-use ';' nvm $argv
+#end
+
 # https://superuser.com/questions/776008/how-to-remove-a-path-from-path-variable-in-fish @pepperonico
 function fish_remove_path --description "Shows user added PATH entries and removes the selected one"
     echo "User added PATH entries"

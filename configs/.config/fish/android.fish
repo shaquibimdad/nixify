@@ -14,3 +14,10 @@ alias adbx="adb disconnect $(ip route | grep default | awk '{print $3}'):5555"
 
 alias rnw="yarn react-native run-android --deviceId=$(ip route | grep default | awk '{print $3}'):5555 --active-arch-only"
 alias rni="kitty @ set-tab-title 'Util' && kitty @ launch --hold --no-response --cwd current --type tab --title 'JS Server' yarn start --reset-cache && sleep 10 && kitty @ launch --hold --no-response --cwd current  --type tab --title 'Android Build' yarn react-native run-android --active-arch-only"
+
+
+
+
+function connect
+ adb connect $(ip route | grep default | awk '{print $3}'):5555
+end
