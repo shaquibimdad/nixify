@@ -1,0 +1,30 @@
+import = ["/home/shaquibimdad/.config/alacritty/catppuccin-mocha.toml"]
+live_config_reload = true
+window.opacity = 0.6
+window.decorations = "None"
+window.blur = true
+window.startup_mode = "Maximized"
+
+[[hints.enabled]]
+regex = "[^ ]+\\.rs:\\d+:\\d+"
+command = { program = "code", args = [ "--goto" ] }
+mouse = { enabled = true }
+
+[font]
+size = 18
+
+[font.normal]
+family = "Hack Nerd Font Mono"
+style = "Regular"
+
+[[keyboard.bindings]]
+action = "SpawnNewInstance"
+key = "Return"
+mods = "Control|Shift"
+
+[shell]
+program = "/usr/bin/fish"
+
+[window.padding]
+x = 20
+y = 20

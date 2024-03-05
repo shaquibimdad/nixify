@@ -36,8 +36,6 @@ else
 fi
 
 yay -Sy --needed --noconfirm \
-    nautilus-open-any-terminal \
-    google-chrome \
     xorg-xwininfo \
     git \
     nano \
@@ -46,8 +44,6 @@ yay -Sy --needed --noconfirm \
     exa \
     zip \
     htop \
-    telegram-desktop \
-    discord \
     vlc \
     yarn \
     python \
@@ -55,10 +51,8 @@ yay -Sy --needed --noconfirm \
     python-pip \
     gwenview \
     ktorrent \
-    nodejs-lts-hydrogen \
-    neofetch \
-    nvtop \
-    visual-studio-code-bin
+    stow \
+    neofetch 
 
 log "Yay aur helper and package installation complete" 32 1
 

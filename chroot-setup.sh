@@ -5,12 +5,12 @@ echo "Setting up the chroot system..."
 rm -f /etc/pacman.d/mirrorlist
 echo "Server = https://mirror.osbeck.com/archlinux/\$repo/os/\$arch" | tee -a /etc/pacman.d/mirrorlist
 
-# enable parallel downloads and colored output
-sed -i '/^\s*#\(ParallelDownloads\|Color\)/ s/#//' /etc/pacman.conf
+# enable parallel downloads and colored output and enable extra-testing
+sed -i '/^\s*#\(ParallelDownloads\|Color\|\[extra-testing\]\|Include = \/etc\/pacman\.d\/mirrorlist\)/ s/#//' /etc/pacman.conf
 
 # Set the timezone to Asia/Kolkata
 ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
-hwclock --systohc
+hwclock --systohc --utc
 
 # Generate the locale
 sed -i '/^#en_US.UTF-8 UTF-8/s/^#//' /etc/locale.gen
@@ -39,34 +39,26 @@ passwd shaquibimdad
 # Grant sudo privileges to the user "shaquibimdad"
 echo "shaquibimdad ALL=(ALL) ALL" >>/etc/sudoers.d/shaquibimdad
 
-# install gnome and packages
-pacman -Syyu --needed --noconfirm gnome \
-    intel-ucode \
-    linux-firmware \
-    linux-headers \
-    intel-media-driver \
+# install kde and packages
+pacman -Syyu --needed --noconfirm \
+    plasma \
+    sddm \
     networkmanager \
     bluez \
-    nvidia-dkms \
-    nvidia-prime \
     zram-generator \
-    mesa-utils \
-    libva-intel-driver \
-    libva-utils \
-    power-profiles-daemon \
+    alacritty \
     expac \
+    exfatprogs \
     sysfsutils \
-    mesa-vdpau \
     fish \
     wget \
     git \
-    ntfs-3g \
     android-udev \
     docker \
     docker-buildx \
     docker-compose \
-    noto-fonts-emoji \
     fuse-overlayfs \
+    noto-fonts-emoji \
     ttf-hack-nerd
 
 usermod -a -G docker shaquibimdad
@@ -75,20 +67,21 @@ usermod -s /usr/bin/fish shaquibimdad
 
 systemctl enable NetworkManager
 systemctl enable bluetooth
-systemctl enable gdm
-systemctl enable power-profiles-daemon
+systemctl enable sddm
+# systemctl enable gdm
+# systemctl enable power-profiles-daemon
 systemctl enable docker
 systemctl enable systemd-zram-setup@zramN.service
-systemctl enable nvidia-hibernate.service
-systemctl enable nvidia-resume.service
-systemctl enable nvidia-suspend.service
-systemctl enable nvidia-persistenced.service
-systemctl enable nvidia-powerd.service
+# systemctl enable nvidia-hibernate.service
+# systemctl enable nvidia-resume.service
+# systemctl enable nvidia-suspend.service
+# systemctl enable nvidia-persistenced.service
+# systemctl enable nvidia-powerd.service
 
-mkdir -p /etc/modprobe.d/
-cat >/etc/modprobe.d/nvidia.conf <<EOF
-options nvidia NVreg_PreserveVideoMemoryAllocations=1 NVreg_TemporaryFilePath=/var/tmp
-EOF
+# mkdir -p /etc/modprobe.d/
+# cat >/etc/modprobe.d/nvidia.conf <<EOF
+# options nvidia NVreg_PreserveVideoMemoryAllocations=1 NVreg_TemporaryFilePath=/var/tmp
+# EOF
 
 mkdir -p /etc/docker/
 cat >/etc/docker/daemon.json <<EOF
@@ -99,16 +92,17 @@ EOF
 
 cat >/etc/systemd/zram-generator.conf <<EOF
 [zram0]
-zram-size = 32000
+zram-size = 16000
 compression-algorithm = lz4
 swap-priority = 100
 fs-type = swap
 EOF
 
-echo "/dev/nvme0n1p3 /media/shaquib ntfs-3g auto,users,permissions,exec,uid=1000,gid=1000,dmask=022,fmask=022 0 0" | tee -a /etc/fstab
+echo "/dev/nvme0n1p1 /media/shaquib auto nosuid,nodev,nofail,x-gvfs-show 0 0" | tee -a /etc/fstab
 
 # nvidia configs
-ln -s /dev/null /etc/udev/rules.d/61-gdm.rules
+# ln -s /dev/null /etc/udev/rules.d/61-gdm.rules
+
 mkinitcpio -P
 
 # Install the boot loader
@@ -120,16 +114,16 @@ title   Arch Linux
 linux   /vmlinuz-linux
 initrd  /intel-ucode.img
 initrd  /initramfs-linux.img
-options root=/dev/nvme0n1p4 rw
+options root=/dev/nvme0n1p3 rw
 EOF
 
 # Fallback entry
 cat >/boot/loader/entries/arch-fallback.conf <<EOF
-title   Arch Linux (FALLBACK ;-;)
+title   Arch Linux FALLBACK
 linux   /vmlinuz-linux
 initrd  /intel-ucode.img
 initrd  /initramfs-linux-fallback.img
-options root=/dev/nvme0n1p4 rw
+options root=/dev/nvme0n1p3 rw
 EOF
 
 # exit the chroot environment properly
