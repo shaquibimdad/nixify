@@ -1,7 +1,59 @@
+alias gp "git push"
+alias gpl "git pull --rebase"
+
+function gc
+  if test -z $argv
+    echo "Error: Please provide a commit message."
+    return 1
+  end
+  git commit -m $argv
+end
+
+function gck
+  if test -z $argv
+    echo "Error: Please provide a existing branch name to checkout."
+    return 1
+  end
+  git checkout $argv
+end
+
+function gckn
+  if test -z $argv
+    echo "Error: Please provide a new branch name to checkout."
+    return 1
+  end
+  git checkout -b $argv
+end
+
+function ga
+  if test -z $argv
+    echo "Error: Please provide a file to add."
+    return 1
+  end
+  git add $argv
+end
+
+function gres
+  if test -z $argv
+    echo "Error: Please provide at least one staged file to restore."
+    return 1
+  end
+  git restore --staged $argv
+end
+
 function gac
+  if test -z $argv
+    echo "Error: Please provide a commit message."
+    return 1
+  end
+  git add .
+  git commit -m $argv
+end
+
+function gane
   git add .
   git commit --amend --no-edit
-  git push -f
+#   git push -f
 end
 
 function capgh

@@ -4,6 +4,8 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
+fish_add_path ~/.local/bin/
+
 source ~/.config/fish/custom.fish
 source ~/.config/fish/android.fish
 source ~/.config/fish/git.fish
@@ -16,7 +18,7 @@ function addpaths
 end
 
 function ngrokk
-	ngrok http --domain=cobra-giving-cow.ngrok-free.app 8000
+	ngrok http --domain=cobra-giving-cow.ngrok-free.app $argv
 end
 
 #function nvm

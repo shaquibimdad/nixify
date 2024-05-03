@@ -1,0 +1,6 @@
+mirror_url=https://mirror.osbeck.com/archlinux/$repo/os/$arch
+root_partition=/dev/nvme0n1p3
+boot_partition=/dev/nvme0n1p4
+base_packages=base,base-devel,linux,linux-firmware,linux-headers,intel-ucode
+format_boot=false
+format_root=true

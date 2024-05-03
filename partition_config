@@ -1,3 +1,0 @@
-# partition_config
-root_partition="/dev/nvme0n1p4"
-boot_partition="/dev/nvme0n1p5"

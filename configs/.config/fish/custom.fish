@@ -23,3 +23,10 @@ function ppp
     #echo $value
   g++ -o $name $name.cpp && ./$name < input.txt > output.txt && rm $name
 end
+
+
+function repopkg
+  set name $argv[1]
+    pacman -Sl $argv[1] | grep "\[installed\]"
+end
+

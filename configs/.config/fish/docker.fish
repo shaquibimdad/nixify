@@ -19,3 +19,11 @@ function __docker_clean_all
     echo "Cleaning Docker system..."
     docker system prune --all --force --volumes
 end
+
+alias dcu "docker compose up -d"
+alias dcd "docker compose down"
+
+function dcuc
+	docker compose up -d
+	docker exec -it $argv[1] bash
+end

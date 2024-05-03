@@ -5,8 +5,8 @@ echo "Setting up the chroot system..."
 rm -f /etc/pacman.d/mirrorlist
 echo "Server = https://mirror.osbeck.com/archlinux/\$repo/os/\$arch" | tee -a /etc/pacman.d/mirrorlist
 
-# enable parallel downloads and colored output and enable extra-testing
-sed -i '/^\s*#\(ParallelDownloads\|Color\|\[extra-testing\]\|Include = \/etc\/pacman\.d\/mirrorlist\)/ s/#//' /etc/pacman.conf
+# enable parallel downloads and colored output
+sed -i '/^\s*#\(ParallelDownloads\|Color\)/ s/#//' /etc/pacman.conf
 
 # Set the timezone to Asia/Kolkata
 ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
@@ -41,11 +41,10 @@ echo "shaquibimdad ALL=(ALL) ALL" >>/etc/sudoers.d/shaquibimdad
 
 # install kde and packages
 pacman -Syyu --needed --noconfirm \
-    plasma \
-    sddm \
     networkmanager \
+    gnome \
+    gdm \
     bluez \
-    zram-generator \
     alacritty \
     expac \
     exfatprogs \
@@ -58,6 +57,7 @@ pacman -Syyu --needed --noconfirm \
     docker-buildx \
     docker-compose \
     fuse-overlayfs \
+    noto-fonts \
     noto-fonts-emoji \
     ttf-hack-nerd
 
@@ -67,11 +67,10 @@ usermod -s /usr/bin/fish shaquibimdad
 
 systemctl enable NetworkManager
 systemctl enable bluetooth
-systemctl enable sddm
-# systemctl enable gdm
-# systemctl enable power-profiles-daemon
+systemctl enable gdm
+systemctl enable power-profiles-daemon
 systemctl enable docker
-systemctl enable systemd-zram-setup@zramN.service
+
 # systemctl enable nvidia-hibernate.service
 # systemctl enable nvidia-resume.service
 # systemctl enable nvidia-suspend.service
@@ -90,13 +89,14 @@ cat >/etc/docker/daemon.json <<EOF
 }
 EOF
 
-cat >/etc/systemd/zram-generator.conf <<EOF
-[zram0]
-zram-size = 16000
-compression-algorithm = lz4
-swap-priority = 100
-fs-type = swap
-EOF
+# systemctl enable systemd-zram-setup@zramN.service
+# cat >/etc/systemd/zram-generator.conf <<EOF
+# [zram0]
+# zram-size = 16000
+# compression-algorithm = lz4
+# swap-priority = 100
+# fs-type = swap
+# EOF
 
 echo "/dev/nvme0n1p1 /media/shaquib auto nosuid,nodev,nofail,x-gvfs-show 0 0" | tee -a /etc/fstab
 

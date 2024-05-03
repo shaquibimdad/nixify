@@ -1,0 +1,23 @@
+[user]
+    	email = mail@shaquib.dev
+    	name = Shaquib Imdad
+	signingkey = mail@shaquib.dev
+[commit]
+	gpgsign = true
+[gpg]
+	program = gpg2
+[core]
+	editor = nano
+[init]
+	defaultBranch = main
+[pull]
+	rebase = true
+	ff = only
+[push]
+	default = current
+[merge]
+	tool = meld
+[safe]
+    directory = *
+[color]
+	ui = auto
